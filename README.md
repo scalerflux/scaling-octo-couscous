@@ -16,3 +16,5 @@ To initialize a flop we got control pins like `Reset` and `Set` and there  async
 * for ex: ansynchronous rest will set q to 0 irrespective of the clock while sync one see if there is any sync_reset at the positive edge
 
 ## Flop synthesis Simulations
+We can see here that just before the reset the q=1 because d=1, bu the moment reset came, q didn't wait for the subsequent clockedge but went immediately to zero 
+<img width="1393" height="915" alt="Screenshot 2025-09-25 at 6 42 49 PM" src="https://github.com/user-attachments/assets/a564b3ce-a48a-4bbd-820d-caaccb1cad86" />
