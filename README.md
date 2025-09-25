@@ -6,10 +6,13 @@
 ### Why do we need flops in digital circuits?
 
 The main to resolve the "glitchy output in combination circuits
->Due to the propogation delay in gates we encounter a glitch at the ouput
->We use flip-flop sto restrict the glitches, coz they'll only change on the edge of the clock
->Even though the input might be glicthy, the ouput will be stable which will speed the circuit
->Also settles downs the the value
+*Due to the propogation delay in gates we encounter a glitch at the ouput
+*We use flip-flop sto restrict the glitches, coz they'll only change on the edge of the clock
+*Even though the input might be glicthy, the ouput will be stable which will speed the circuit
+*Also settles downs the the value
 
-To initialize a flop we got control pins like `Reset` and `Set` 
+To initialize a flop we got control pins like `Reset` and `Set` and there  asynchronous n synchrnous flops
+* Hence depending on these flops are classified into 4 different types
+* for ex: ansynchronous rest will set q to 0 irrespective of the clock while sync one see if there is any sync_reset at the positive edge
 
+## Flop synthesis Simulations
