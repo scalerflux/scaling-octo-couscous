@@ -33,7 +33,7 @@ When reset bcomes 1 q is not changed till the subsequent clock edge n doeasn't b
 
 <img width="1141" height="621" alt="Screenshot 2025-09-25 at 7 23 17 PM" src="https://github.com/user-attachments/assets/7b6bbbe4-4586-4722-a396-d88d29d02fc7" />
 
-###Synthesising the 3 above circuits
+### Synthesising the 3 above circuits
 
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -65,18 +65,18 @@ show
 ```
 <img width="1848" height="927" alt="Screenshot 2025-09-25 at 7 55 53 PM" src="https://github.com/user-attachments/assets/b6e5e97b-4cca-4fbd-a49f-0d979a8b9e16" />
 
-###Optimizatios
+### Optimizatios
 
 Just by rewiring we can achieve few logic functionalities without using standard cells
 1. mult2
-   ```
+ ```
    read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
    read_verilog mult_2.v
    synth -top mul2
    show
    write_verilog -noattr mult2_net.v
    !gvim mult2_net.v
-   ```
+ ```
 
  
 Here we don't any hardware(i.e the standard cells)  to implement this, just appnding 0 works fine
@@ -97,6 +97,46 @@ Here we don't any hardware(i.e the standard cells)  to implement this, just appn
    ```
 We can generalize for power of 2. for ex: for 8 3 zeros are appended 
 <img width="1209" height="947" alt="Screenshot 2025-09-26 at 9 38 32 AM" src="https://github.com/user-attachments/assets/0ff78876-8a7b-4073-85c8-2d29aecfee9d" />
+
+### Day 3 
+## Combinational logic optimization
+
+1. We expect this mux `opt_check.v` to get simplified to AND  gate
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check.v
+synth -top opt_check
+opt_clean -purge
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+<img width="1089" height="618" alt="Screenshot 2025-09-26 at 11 27 39 AM" src="https://github.com/user-attachments/assets/702e3fcb-ab13-4446-94a7-fc609c4c2886" />
+
+
+2. `opt_check3` to a 3 input AND gate
+<img width="972" height="668" alt="Screenshot 2025-09-26 at 11 41 58 AM" src="https://github.com/user-attachments/assets/7010b0a3-ee4a-4a91-8e2b-77583be3e1c0" />
+
+3. `multiple_module_opt.v` to 2 input AND  feeding a 2 input OR (a21o)
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog multiple_module_opt.v
+synth -multiple_module_opt
+flatten
+opt_clean -purge 
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+<img width="1236" height="846" alt="Screenshot 2025-09-26 at 12 10 29 PM" src="https://github.com/user-attachments/assets/0744100a-76c0-46e4-9bc0-b1b278cdb875" />
+
+## Sequential logic optimizations
+
+1. Here q doesn't change immidiately as reset changes, but changes only at next posedge clock, this will require to infer a dff(flop)
+<img width="1129" height="753" alt="Screenshot 2025-09-26 at 12 35 56 PM" src="https://github.com/user-attachments/assets/43366a98-1152-4440-8987-9726897d5dcb" />
+
+2. While here it's not coz irresptive clock, q wis always 1
+<img width="929" height="993" alt="Screenshot 2025-09-26 at 3 05 47 PM" src="https://github.com/user-attachments/assets/fc2dc72d-377f-41a1-af03-f24022764363" />
+
+
 
 
 
