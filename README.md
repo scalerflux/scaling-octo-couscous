@@ -1,4 +1,4 @@
-# Day 1 - Introduction to Verilog RTL Design and Synthesis
+<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/4495ecf1-579d-4da2-b050-9ab756d5e14e" /><img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/edb0f80f-eac9-44e4-8d6f-3ee6b36cc6c4" /># Day 1 - Introduction to Verilog RTL Design and Synthesis
 ## Introduction to open-source simulator Iverilog
 
 
@@ -135,6 +135,43 @@ show
 
 2. While here it's not coz irresptive clock, q wis always 1
 <img width="929" height="993" alt="Screenshot 2025-09-26 at 3 05 47 PM" src="https://github.com/user-attachments/assets/fc2dc72d-377f-41a1-af03-f24022764363" />
+
+3. `dff_const4.v`
+<img width="1017" height="1158" alt="Screenshot 2025-09-26 at 4 08 16 PM" src="https://github.com/user-attachments/assets/2955da06-1f98-4c7f-b558-0cd1214816a6" />
+
+4. `diff_const5.v`
+<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/662ac61c-0c42-4e90-9e1d-ec3a2d63f34b" />
+
+## Sequence optimization unused ouoputs
+
+If some llogic doesn't contribute to the ouput, we can remove them
+1. Here it only uses on flip flop, and optimizes the first two bits which is not used in output
+<img width="1271" height="1094" alt="Screenshot 2025-09-26 at 4 28 50 PM" src="https://github.com/user-attachments/assets/8eaf8a71-e73a-4c3e-b902-54a3608397a3" />
+
+2. Now let's use all the 3 bits of the counter, and 3 flops must be inferred 
+<img width="1487" height="1123" alt="Screenshot 2025-09-26 at 4 41 46 PM" src="https://github.com/user-attachments/assets/9882b160-1fb3-4737-9271-afff71dafb36" />
+
+
+### Day 4
+
+## GLS synth sym mismatch 
+
+```
+
+
+
+
+
+
+iverilog ../my_lib/verilog_model/primitives.v  ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v
+```
+<img width="1707" height="1125" alt="Screenshot 2025-09-26 at 6 10 27 PM" src="https://github.com/user-attachments/assets/9f3c927c-958d-4a5e-a206-77d588720272" />
+
+1. `bad_mux`, missing sensitivity list example. Here y will only change if select changes rendring i1 n i0 waste, the synthesis simulation mismatch can clearly seen here
+<img width="1032" height="1081" alt="Screenshot 2025-09-26 at 7 14 16 PM" src="https://github.com/user-attachments/assets/359fb9be-420b-4e8a-9e1c-16d544508d4c" />
+
+2. Blocking statement (here we'll se as if the ouput of a OR b is flopped in the simulation)
+<img width="1001" height="1158" alt="Screenshot 2025-09-26 at 7 35 10 PM" src="https://github.com/user-attachments/assets/cb910366-156b-4e4a-b28b-0cca2fd925d8" />
 
 
 
