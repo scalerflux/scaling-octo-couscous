@@ -54,6 +54,7 @@ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
 <img width="1848" height="893" alt="Screenshot 2025-09-25 at 7 48 50 PM" src="https://github.com/user-attachments/assets/7ceb78c9-8c23-4c03-875b-f26570665048" />
+
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 read_verilog dff_syncres.v
@@ -61,8 +62,41 @@ synth -top dff_syncres
 dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
-
 ```
 <img width="1848" height="927" alt="Screenshot 2025-09-25 at 7 55 53 PM" src="https://github.com/user-attachments/assets/b6e5e97b-4cca-4fbd-a49f-0d979a8b9e16" />
+
+###Optimizatios
+
+Just by rewiring we can achieve few logic functionalities without using standard cells
+1. mult2
+   ```
+   read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+   read_verilog mult_2.v
+   synth -top mul2
+   show
+   write_verilog -noattr mult2_net.v
+   !gvim mult2_net.v
+   ```
+
+ 
+Here we don't any hardware(i.e the standard cells)  to implement this, just appnding 0 works fine
+<img width="882" height="262" alt="Screenshot 2025-09-26 at 9 39 58 AM" src="https://github.com/user-attachments/assets/c515e9fa-4b32-4caa-94d4-7553eeb220db" />
+
+
+<img width="1274" height="795" alt="Screenshot 2025-09-26 at 9 22 27 AM" src="https://github.com/user-attachments/assets/1f43ca43-4d5d-4d32-9f59-e41250b08301" />
+
+
+
+2. mult8
+   ```
+   read_verilog mult_8.v
+   synth -top mult_8
+   show
+   write_verilog -noattr mult8_net.v
+   !gvim mult8_net.v
+   ```
+We can generalize for power of 2. for ex: for 8 3 zeros are appended 
+<img width="1209" height="947" alt="Screenshot 2025-09-26 at 9 38 32 AM" src="https://github.com/user-attachments/assets/0ff78876-8a7b-4073-85c8-2d29aecfee9d" />
+
 
 
