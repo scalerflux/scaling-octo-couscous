@@ -1,6 +1,8 @@
  ### Day 1 - Introduction to Verilog RTL Design and Synthesis
- 
-<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/4495ecf1-579d-4da2-b050-9ab756d5e14e" /><img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/edb0f80f-eac9-44e4-8d6f-3ee6b36cc6c4" />
+
+ ![WhatsApp Image 2025-09-27 at 15 01 52](https://github.com/user-attachments/assets/3a31208b-9521-4f4b-9a1d-6a7156099274)
+
+
 
 a. ## Introduction to open-source simulator Iverilog
 
@@ -233,7 +235,7 @@ b. demux <img width="1756" height="1118" alt="Screenshot 2025-09-27 at 12 41 55�
 
 
    
-
+<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/4495ecf1-579d-4da2-b050-9ab756d5e14e" /><img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/edb0f80f-eac9-44e4-8d6f-3ee6b36cc6c4" />
 
 
 
