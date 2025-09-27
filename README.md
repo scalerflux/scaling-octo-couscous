@@ -1,5 +1,17 @@
-<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/4495ecf1-579d-4da2-b050-9ab756d5e14e" /><img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/edb0f80f-eac9-44e4-8d6f-3ee6b36cc6c4" /># Day 1 - Introduction to Verilog RTL Design and Synthesis
-## Introduction to open-source simulator Iverilog
+ ### Day 1 - Introduction to Verilog RTL Design and Synthesis
+ 
+<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/4495ecf1-579d-4da2-b050-9ab756d5e14e" /><img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/edb0f80f-eac9-44e4-8d6f-3ee6b36cc6c4" />
+
+a. ## Introduction to open-source simulator Iverilog
+
+<img width="1076" height="877" alt="Screenshot 2025-09-27 at 2 55 09 PM" src="https://github.com/user-attachments/assets/45ea6e8e-8abf-45ba-ab29-785a47d1774b" />
+
+b. ##Intoduction to yosys
+<img width="1163" height="375" alt="Screenshot 2025-09-27 at 3 17 39 PM" src="https://github.com/user-attachments/assets/d2c307c5-9bf3-4dfc-abbc-fbdbe6e2e36d" />
+<img width="1258" height="637" alt="Screenshot 2025-09-27 at 3 22 35 PM" src="https://github.com/user-attachments/assets/96592f85-4dce-4dfc-8bb8-a658ac6f6539" />
+
+c. ## Flat vs Hierarhial synthesis
+<img width="1348" height="1017" alt="Screenshot 2025-09-27 at 3 33 00 PM" src="https://github.com/user-attachments/assets/d533d9e3-cf3d-4136-85ab-8f7087fdcd88" />
 
 
 ## Various Flop Coding Styles and Optimization
@@ -173,6 +185,54 @@ iverilog ../my_lib/verilog_model/primitives.v  ../my_lib/verilog_model/sky130_fd
 2. Blocking statement (here we'll se as if the ouput of a OR b is flopped in the simulation)
 <img width="1001" height="1158" alt="Screenshot 2025-09-26 at 7 35 10 PM" src="https://github.com/user-attachments/assets/cb910366-156b-4e4a-b28b-0cca2fd925d8" />
 
+
+### Day 5
+
+## IF
+
+1.  Incomplete IF
+  The aim was to create a mux but i has infereed a dlatch during synthesis due the absence of esle i0 is latching on to the value of the ouput y 
+
+
+  <img width="1024" height="922" alt="Screenshot 2025-09-27 at 9 37 12 AM" src="https://github.com/user-attachments/assets/e6398787-58f8-428b-8c0f-9bf2db1f202e" />
+
+  ## CASE 
+  
+1. Incomlete case
+   So when select line is zero it acts a mux ut when it's 1 then it acts as latch, hence instead of just the mux it wass be 2x1 mux onnected to the dpin of the ltach with enable condition being  1
+   <img width="1552" height="1035" alt="Screenshot 2025-09-27 at 9 53 36 AM" src="https://github.com/user-attachments/assets/f687db60-97c1-4ef0-876e-53c44f04cf37" />
+
+   so adding a defualt statement will prevent this latching, let's seet in action(and we can see that no latch was inferred during synthesis!! which is so cool)
+   <img width="1546" height="1095" alt="Screenshot 2025-09-27 at 10 47 50 AM" src="https://github.com/user-attachments/assets/fa240854-b7ec-4208-bbd7-5a869525f87f" />
+   checking rtl epecteactation ....
+
+2. Partial assignment , here in ase of ouput X we'll see that when sel [1] + sel [0] , it acts a latch
+<img width="1287" height="907" alt="Screenshot 2025-09-27 at 11 04 36 AM" src="https://github.com/user-attachments/assets/cf343c46-e3e7-443d-b40d-9d2db5d2d198" />
+Clearly it has inferred a latch during synthesis
+
+3. Incomplete overlapping case, with 2`b1? it will get executed both times the select is 0 n 1. Which will cause synthesis simualtion mismatch
+<img width="1716" height="1117" alt="Screenshot 2025-09-27 at 11 28 43 AM" src="https://github.com/user-attachments/assets/c528a246-7ba0-445b-88d4-0933a29986dd" />
+
+the correct way to code is to not have overlapping cases 
+
+### Verilog coding n synthesis  styles 
+
+## Looping construtcs 
+
+1. For loop (used inside the always block n to evaluate expressions)
+   
+a. mux
+<img width="1789" height="1118" alt="Screenshot 2025-09-27 at 12 25 48 PM" src="https://github.com/user-attachments/assets/6dbbfef4-fcbc-46e3-8484-2d97c63b3026" />
+b. demux <img width="1756" height="1118" alt="Screenshot 2025-09-27 at 12 41 55 PM" src="https://github.com/user-attachments/assets/e0db1d94-e9b1-4e3e-8413-05b8a8b10406" />
+
+2. Generate loop
+<img width="1914" height="1109" alt="Screenshot 2025-09-27 at 2 38 03 PM" src="https://github.com/user-attachments/assets/6444acf8-ffd6-4836-8b33-486bd1950185" />
+
+
+
+
+
+   
 
 
 
