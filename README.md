@@ -1,9 +1,9 @@
 <details>
 <summary>Day 1 - Introduction to Verilog RTL Design and Synthesis</summary>
  
- ### Day 1 - Introduction to Verilog RTL Design and Synthesis
 
-<img width="857" height="901" alt="Screenshot 2025-09-27 at 3 45 04 PM" src="https://github.com/user-attachments/assets/5a1758db-eda4-46ad-a5d3-af1210e60058" />
+
+<img width="1976" height="877" alt="Screenshot 2025-09-27 at 3 45 04 PM" src="https://github.com/user-attachments/assets/5a1758db-eda4-46ad-a5d3-af1210e60058" />
 
 
 
@@ -12,11 +12,13 @@ Folder structure of the git clone:
 - `my_lib/verilog_models` - will contain standard cell verilog model
 - `verilog_files` -contains the lab experiments source files
 
-a. ## Introduction to open-source simulator Iverilog
+## Introduction to open-source simulator Iverilog
 
 <img width="1076" height="877" alt="Screenshot 2025-09-27 at 2 55 09 PM" src="https://github.com/user-attachments/assets/45ea6e8e-8abf-45ba-ab29-785a47d1774b" />
 
-b. ##Intoduction to yosys
+
+## Intoduction to yosys
+ 
 <img width="1163" height="375" alt="Screenshot 2025-09-27 at 3 17 39 PM" src="https://github.com/user-attachments/assets/d2c307c5-9bf3-4dfc-abbc-fbdbe6e2e36d" />
 <img width="1258" height="637" alt="Screenshot 2025-09-27 at 3 22 35 PM" src="https://github.com/user-attachments/assets/96592f85-4dce-4dfc-8bb8-a658ac6f6539" />
 
@@ -27,13 +29,10 @@ b. ##Intoduction to yosys
 <summary>Day 2 - Timing libs, Hierarchical vs Flat Synthesis and Efficient Flop Coding Styles </summary>
 
 
-c. ## Flat vs Hierarhial synthesis
+## Flat vs Hierarhial synthesis
 <img width="1348" height="1017" alt="Screenshot 2025-09-27 at 3 33 00 PM" src="https://github.com/user-attachments/assets/d533d9e3-cf3d-4136-85ab-8f7087fdcd88" />
 
 
-
-
-## Various Flop Coding Styles and Optimization
 ### Why do we need flops in digital circuits?
 
 The main to resolve the "glitchy output in combination circuits
