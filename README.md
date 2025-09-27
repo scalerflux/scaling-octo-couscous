@@ -1,6 +1,20 @@
 <details>
 <summary>Day 1 - Introduction to Verilog RTL Design and Synthesis</summary>
 
+* RTL design is checked for adherence to spec
+* the simulator we use for that is Iverilog
+
+What's a design?
+* Actaul verilog/files
+* Has intended functionality
+* Meets required specifications
+
+Whta's Testbench?
+* Setup to apply stimulus 
+* Checks design functionality
+
+<img width="493" height="578" alt="Screenshot 2025-09-27 at 4 04 32 PM" src="https://github.com/user-attachments/assets/c401843a-37f8-42b6-971b-d6798f8cd03e" />
+
 
 
 Folder structure of the git clone:
@@ -15,13 +29,14 @@ Folder structure of the git clone:
 
 ## Intoduction to yosys
 
+```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 read_verilog good_mux.v
 synth -top good_mux
 dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
- 
+ ```
 <img width="1163" height="375" alt="Screenshot 2025-09-27 at 3 17 39 PM" src="https://github.com/user-attachments/assets/d2c307c5-9bf3-4dfc-abbc-fbdbe6e2e36d" />
 <img width="1258" height="637" alt="Screenshot 2025-09-27 at 3 22 35 PM" src="https://github.com/user-attachments/assets/96592f85-4dce-4dfc-8bb8-a658ac6f6539" />
 
@@ -51,8 +66,8 @@ To initialize a flop we got control pins like `Reset` and `Set` and there  async
 
 ### Flop synthesis Simulations
 
-1.AsyncReset
- Just before the reset the q=1 because d=1, bu the moment reset came, q didn't wait for the subsequent clockedge but went immediately to zero 
+1. AsyncReset
+Just before the reset the q=1 because d=1, bu the moment reset came, q didn't wait for the subsequent clockedge but went immediately to zero 
  
 <img width="1180" height="638" alt="Screenshot 2025-09-25 at 7 12 19 PM" src="https://github.com/user-attachments/assets/c5b02b4b-baf1-43a5-9d41-30e338fa231d" />
 
