@@ -14,6 +14,12 @@ Whta's Testbench?
 * Setup to apply stimulus 
 * Checks design functionality
 
+  
+## Toolchain Summary
+
+- **Simulator**: Icarus Verilog (`iverilog` → `vvp`) + GTKWave for waveforms.  
+- **Synthesis**: Yosys + ABC / `dfflibmap` → netlist → optionally gate-level sim.
+
 <img width="493" height="578" alt="Screenshot 2025-09-27 at 4 04 32 PM" src="https://github.com/user-attachments/assets/c401843a-37f8-42b6-971b-d6798f8cd03e" />
 
 
@@ -28,6 +34,8 @@ K cool we simulated it, but hat's a synthesiser?
 
 
 ## Intoduction to yosys
+
+<img width="553" height="513" alt="Screenshot 2025-09-27 at 4 59 03 PM" src="https://github.com/user-attachments/assets/4dd0c63a-7129-429c-b3c8-16592cbc4696" />
 
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -73,18 +81,21 @@ To initialize a flop we got control pins like `Reset` and `Set` and there  async
 
 ### Flop synthesis Simulations
 
-1. AsyncReset
-Just before the reset the q=1 because d=1, bu the moment reset came, q didn't wait for the subsequent clockedge but went immediately to zero 
+#### AsyncReset
+   
+Just before the reset the q=1 because d=1, but the moment reset came, q didn't wait for the subsequent clockedge but went immediately to zero 
  
 <img width="1180" height="638" alt="Screenshot 2025-09-25 at 7 12 19 PM" src="https://github.com/user-attachments/assets/c5b02b4b-baf1-43a5-9d41-30e338fa231d" />
 
 
-2. AsyncSet
-When set = 1 q was alo 1 irrespective of d, once the set = 0, chages in d are apprent in q upon the posistive clock edge
+#### AsyncSet
+   
+When set = 1 q was also 1 irrespective of d, once the set = 0, chages in d are apprent in q upon the posistive clock edge
 
 <img width="1181" height="637" alt="Screenshot 2025-09-25 at 7 07 58 PM" src="https://github.com/user-attachments/assets/16c0c91a-5f84-4502-a748-40aec7c1c198" />
 
-3. SyncReset
+#### SyncReset
+
 When reset bcomes 1 q is not changed till the subsequent clock edge n doeasn't become zero immediately. so the reset apllies only upon posedge here
 
 <img width="1141" height="621" alt="Screenshot 2025-09-25 at 7 23 17 PM" src="https://github.com/user-attachments/assets/7b6bbbe4-4586-4722-a396-d88d29d02fc7" />
@@ -110,8 +121,8 @@ Rest same code with changes in name
 
 ## Optimizatios
 
-Just by rewiring we can achieve few logic functionalities without using standard cells
-1. mult2
+#### Just by rewiring we can achieve few logic functionalities without using standard cells
+#### mult2
  ```
    read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
    read_verilog mult_2.v
@@ -122,23 +133,18 @@ Just by rewiring we can achieve few logic functionalities without using standard
  ```
 
  
-Here we don't any hardware(i.e the standard cells)  to implement this, just appnding 0 works fine
+#### Here we don't any hardware(i.e the standard cells)  to implement this, just appnding 0 works fine
+
 <img width="882" height="262" alt="Screenshot 2025-09-26 at 9 39 58 AM" src="https://github.com/user-attachments/assets/c515e9fa-4b32-4caa-94d4-7553eeb220db" />
 
 
 <img width="1274" height="795" alt="Screenshot 2025-09-26 at 9 22 27 AM" src="https://github.com/user-attachments/assets/1f43ca43-4d5d-4d32-9f59-e41250b08301" />
 
 
+#### mult8
+   
+#### We can generalize for power of 2. for ex: for 8 3 zeros are appended 
 
-2. mult8
-   ```
-   read_verilog mult_8.v
-   synth -top mult_8
-   show
-   write_verilog -noattr mult8_net.v
-   !gvim mult8_net.v
-   ```
-We can generalize for power of 2. for ex: for 8 3 zeros are appended 
 <img width="1209" height="947" alt="Screenshot 2025-09-26 at 9 38 32 AM" src="https://github.com/user-attachments/assets/0ff78876-8a7b-4073-85c8-2d29aecfee9d" />
 
 </details>
@@ -150,9 +156,9 @@ We can generalize for power of 2. for ex: for 8 3 zeros are appended
 
 ## Combinational logic optimization
 
-Squeezing the logic to most optimized design which saves poer n area
+#### Squeezing the logic to most optimized design which saves poer n area
 
-1. We expect this mux `opt_check.v` to get simplified to AND  gate
+#### We expect this mux `opt_check.v` to get simplified to AND  gate
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 read_verilog opt_check.v
@@ -164,10 +170,11 @@ show
 <img width="1089" height="618" alt="Screenshot 2025-09-26 at 11 27 39 AM" src="https://github.com/user-attachments/assets/702e3fcb-ab13-4446-94a7-fc609c4c2886" />
 
 
-2. `opt_check3` to a 3 input AND gate
+#### `opt_check3` to a 3 input AND gate
+
 <img width="972" height="668" alt="Screenshot 2025-09-26 at 11 41 58 AM" src="https://github.com/user-attachments/assets/7010b0a3-ee4a-4a91-8e2b-77583be3e1c0" />
 
-3. `multiple_module_opt.v` to 2 input AND  feeding a 2 input OR (a21o)
+#### `multiple_module_opt.v` to 2 input AND  feeding a 2 input OR (a21o)
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 read_verilog multiple_module_opt.v
@@ -181,30 +188,31 @@ show
 
 ## Sequential logic optimizations
 
-1. Here q doesn't change immidiately as reset changes, but changes only at next posedge clock, this will require to infer a dff(flop)
+#### Here q doesn't change immidiately as reset changes, but changes only at next posedge clock, this will require to infer a dff(flop)
    
 <img width="1129" height="753" alt="Screenshot 2025-09-26 at 12 35 56 PM" src="https://github.com/user-attachments/assets/43366a98-1152-4440-8987-9726897d5dcb" />
 
-3. While here it's not coz irresptive clock, q wis always 1
+#### While here it's not coz irresptive clock, q wis always 1
    
 <img width="929" height="993" alt="Screenshot 2025-09-26 at 3 05 47 PM" src="https://github.com/user-attachments/assets/fc2dc72d-377f-41a1-af03-f24022764363" />
 
-5. `dff_const4.v`
+#### `dff_const4.v`
 
 <img width="1017" height="1158" alt="Screenshot 2025-09-26 at 4 08 16 PM" src="https://github.com/user-attachments/assets/2955da06-1f98-4c7f-b558-0cd1214816a6" />
 
-5. `diff_const5.v`
+#### `diff_const5.v`
 
 <img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/662ac61c-0c42-4e90-9e1d-ec3a2d63f34b" />
 
 ## Sequence optimization of unused ouoputs
 
-## If some llogic doesn't contribute to the ouput, we can remove them
-1. Here it only uses on flip flop, and optimizes the first two bits which is not used in output
+## If some logic doesn't contribute to the ouput, we can remove them
+
+#### Here it only uses on flip flop, and optimizes the first two bits which is not used in output
    
 <img width="1271" height="1094" alt="Screenshot 2025-09-26 at 4 28 50 PM" src="https://github.com/user-attachments/assets/8eaf8a71-e73a-4c3e-b902-54a3608397a3" />
 
-3. Now let's use all the 3 bits of the counter, and 3 flops must be inferred
+#### Now let's use all the 3 bits of the counter, and 3 flops must be inferred
 
 <img width="1487" height="1123" alt="Screenshot 2025-09-26 at 4 41 46 PM" src="https://github.com/user-attachments/assets/9882b160-1fb3-4737-9271-afff71dafb36" />
 
@@ -235,10 +243,15 @@ gtkwave tb_ternary_operator_mux.vcd
 ```
 <img width="1707" height="1125" alt="Screenshot 2025-09-26 at 6 10 27 PM" src="https://github.com/user-attachments/assets/9f3c927c-958d-4a5e-a206-77d588720272" />
 
-1. `bad_mux`, missing sensitivity list example. Here y will only change if select changes rendring i1 n i0 waste, the synthesis simulation mismatch can clearly seen here
+## missing sensitivity list example. 
+
+### Here y will only change if select changes rendring i1 n i0 waste, the synthesis simulation mismatch can clearly seen here
+
 <img width="1032" height="1081" alt="Screenshot 2025-09-26 at 7 14 16 PM" src="https://github.com/user-attachments/assets/359fb9be-420b-4e8a-9e1c-16d544508d4c" />
 
-2. Blocking statement (here we'll se as if the ouput of a OR b is flopped in the simulation)
+## Blocking statement 
+
+### (here we'll se as if the ouput of a OR b is flopped in the simulation)
 <img width="1001" height="1158" alt="Screenshot 2025-09-26 at 7 35 10 PM" src="https://github.com/user-attachments/assets/cb910366-156b-4e4a-b28b-0cca2fd925d8" />
 
 </details>
@@ -249,32 +262,35 @@ gtkwave tb_ternary_operator_mux.vcd
 
 ## IF
 
- ### Incomplete IF
-  The aim was to create a mux but i has infereed a dlatch during synthesis due the absence of esle i0 is latching on to the value of the ouput y 
+### Incomplete IF
+The aim was to create a mux but i has infereed a dlatch during synthesis due the absence of esle, it's latching on to the value of the ouput y 
 
 
-  <img width="1024" height="922" alt="Screenshot 2025-09-27 at 9 37 12 AM" src="https://github.com/user-attachments/assets/e6398787-58f8-428b-8c0f-9bf2db1f202e" />
+<img width="1024" height="922" alt="Screenshot 2025-09-27 at 9 37 12 AM" src="https://github.com/user-attachments/assets/e6398787-58f8-428b-8c0f-9bf2db1f202e" />
   
 ## CASE 
 
 ### Incomlete case
-So when select line is zero it acts a mux ut when it's 1 then it acts as latch, hence instead of just the mux it wass be 2x1 mux onnected to the dpin of the ltach with enable condition being  1
-   
- <img width="1552" height="1035" alt="Screenshot 2025-09-27 at 9 53 36 AM" src="https://github.com/user-attachments/assets/f687db60-97c1-4ef0-876e-53c44f04cf37" />
 
- so adding a defualt statement will prevent this latching, let's seet in action(and we can see that no latch was inferred during synthesis!! which is so cool)
+#### So when select line is zero it acts a mux ut when it's 1 then it acts as latch, hence instead of just the mux it wass be 2x1 mux onnected to the dpin of the ltach with enable condition being  1
    
- <img width="1546" height="1095" alt="Screenshot 2025-09-27 at 10 47 50 AM" src="https://github.com/user-attachments/assets/fa240854-b7ec-4208-bbd7-5a869525f87f" />
- hecking rtl epecteactation ....
+<img width="1552" height="1035" alt="Screenshot 2025-09-27 at 9 53 36 AM" src="https://github.com/user-attachments/assets/f687db60-97c1-4ef0-876e-53c44f04cf37" />
+
+#### so adding a defualt statement will prevent this latching, let's seet in action(and we can see that no latch was inferred during synthesis!! which is so cool)
+   
+<img width="1546" height="1095" alt="Screenshot 2025-09-27 at 10 47 50 AM" src="https://github.com/user-attachments/assets/fa240854-b7ec-4208-bbd7-5a869525f87f" />
+
 
 ### Partial assignment 
- here in ase of ouput X we'll see that when sel [1] + sel [0] , it acts a latch
+
+#### here in ase of ouput X we'll see that when sel [1] + sel [0] , it acts a latch
   
 <img width="1287" height="907" alt="Screenshot 2025-09-27 at 11 04 36 AM" src="https://github.com/user-attachments/assets/cf343c46-e3e7-443d-b40d-9d2db5d2d198" />
 Clearly it has inferred a latch during synthesis
 
 ### Incomplete overlapping case
-with 2`b1? it will get executed both times the select is 0 n 1. Which will cause synthesis simualtion mismatch
+
+#### with 2`b1? it will get executed both times the select is 0 n 1. Which will cause synthesis simualtion mismatch
 
 <img width="1716" height="1117" alt="Screenshot 2025-09-27 at 11 28 43 AM" src="https://github.com/user-attachments/assets/c528a246-7ba0-445b-88d4-0933a29986dd" />
 
@@ -282,23 +298,21 @@ the correct way to code is to not have overlapping cases
 
 ## Verilog coding n synthesis  styles 
 
-### Looping construtcs 
 
-1. For loop (used inside the always block n to evaluate expressions)
+### For loop (used inside the always block n to evaluate expressions)
    
-a. mux
-<img width="1789" height="1118" alt="Screenshot 2025-09-27 at 12 25 48 PM" src="https://github.com/user-attachments/assets/6dbbfef4-fcbc-46e3-8484-2d97c63b3026" />
-b. demux <img width="1756" height="1118" alt="Screenshot 2025-09-27 at 12 41 55 PM" src="https://github.com/user-attachments/assets/e0db1d94-e9b1-4e3e-8413-05b8a8b10406" />
+#### mux
 
-2. Generate loop
+<img width="1789" height="1118" alt="Screenshot 2025-09-27 at 12 25 48 PM" src="https://github.com/user-attachments/assets/6dbbfef4-fcbc-46e3-8484-2d97c63b3026" />
+
+#### demux
+
+<img width="1756" height="1118" alt="Screenshot 2025-09-27 at 12 41 55 PM" src="https://github.com/user-attachments/assets/e0db1d94-e9b1-4e3e-8413-05b8a8b10406" />
+
+### Generate loop (outside always block n used for instantianting the hardware)
+
 <img width="1914" height="1109" alt="Screenshot 2025-09-27 at 2 38 03 PM" src="https://github.com/user-attachments/assets/6444acf8-ffd6-4836-8b33-486bd1950185" />
 
-
-
-
-
-   
-<img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/4495ecf1-579d-4da2-b050-9ab756d5e14e" /><img width="1539" height="830" alt="Screenshot 2025-09-26 at 4 13 00 PM" src="https://github.com/user-attachments/assets/edb0f80f-eac9-44e4-8d6f-3ee6b36cc6c4" />
 
 
 
