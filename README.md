@@ -1,8 +1,16 @@
+<details>
+<summary>Day 1 - Introduction to Verilog RTL Design and Synthesis</summary>
+ 
  ### Day 1 - Introduction to Verilog RTL Design and Synthesis
 
- ![WhatsApp Image 2025-09-27 at 15 01 52](https://github.com/user-attachments/assets/3a31208b-9521-4f4b-9a1d-6a7156099274)
+<img width="857" height="901" alt="Screenshot 2025-09-27 at 3 45 04 PM" src="https://github.com/user-attachments/assets/5a1758db-eda4-46ad-a5d3-af1210e60058" />
 
 
+
+Folder structure of the git clone:
+- `lib` - will contain sky130 standard cell library
+- `my_lib/verilog_models` - will contain standard cell verilog model
+- `verilog_files` -contains the lab experiments source files
 
 a. ## Introduction to open-source simulator Iverilog
 
@@ -12,8 +20,17 @@ b. ##Intoduction to yosys
 <img width="1163" height="375" alt="Screenshot 2025-09-27 at 3 17 39 PM" src="https://github.com/user-attachments/assets/d2c307c5-9bf3-4dfc-abbc-fbdbe6e2e36d" />
 <img width="1258" height="637" alt="Screenshot 2025-09-27 at 3 22 35 PM" src="https://github.com/user-attachments/assets/96592f85-4dce-4dfc-8bb8-a658ac6f6539" />
 
+</details>
+
+<details>
+
+<summary>Day 2 - Timing libs, Hierarchical vs Flat Synthesis and Efficient Flop Coding Styles </summary>
+
+
 c. ## Flat vs Hierarhial synthesis
 <img width="1348" height="1017" alt="Screenshot 2025-09-27 at 3 33 00 PM" src="https://github.com/user-attachments/assets/d533d9e3-cf3d-4136-85ab-8f7087fdcd88" />
+
+
 
 
 ## Various Flop Coding Styles and Optimization
@@ -112,6 +129,11 @@ Here we don't any hardware(i.e the standard cells)  to implement this, just appn
 We can generalize for power of 2. for ex: for 8 3 zeros are appended 
 <img width="1209" height="947" alt="Screenshot 2025-09-26 at 9 38 32 AM" src="https://github.com/user-attachments/assets/0ff78876-8a7b-4073-85c8-2d29aecfee9d" />
 
+</details>
+
+<details>
+	<summary>Day 3 - Combinational and Sequential Optimizations </summary>
+
 ### Day 3 
 ## Combinational logic optimization
 
@@ -165,8 +187,12 @@ If some llogic doesn't contribute to the ouput, we can remove them
 2. Now let's use all the 3 bits of the counter, and 3 flops must be inferred 
 <img width="1487" height="1123" alt="Screenshot 2025-09-26 at 4 41 46 PM" src="https://github.com/user-attachments/assets/9882b160-1fb3-4737-9271-afff71dafb36" />
 
+</details>
 
-### Day 4
+<details>
+
+ <summary>Day 4 - GLS, Blocking vs Non-blocking and Synthesis-Simulation Mismatch</summary>
+
 
 ## GLS synth sym mismatch 
 
@@ -187,8 +213,11 @@ iverilog ../my_lib/verilog_model/primitives.v  ../my_lib/verilog_model/sky130_fd
 2. Blocking statement (here we'll se as if the ouput of a OR b is flopped in the simulation)
 <img width="1001" height="1158" alt="Screenshot 2025-09-26 at 7 35 10 PM" src="https://github.com/user-attachments/assets/cb910366-156b-4e4a-b28b-0cca2fd925d8" />
 
+</details>
 
-### Day 5
+<details>
+	<summary>Day 5 -  IF n CASE </summary>
+
 
 ## IF
 
