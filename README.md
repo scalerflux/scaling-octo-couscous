@@ -1,9 +1,5 @@
 <details>
 <summary>Day 1 - Introduction to Verilog RTL Design and Synthesis</summary>
- 
-
-
-<img width="1976" height="877" alt="Screenshot 2025-09-27 at 3 45 04 PM" src="https://github.com/user-attachments/assets/5a1758db-eda4-46ad-a5d3-af1210e60058" />
 
 
 
