@@ -1,10 +1,11 @@
 <details>
 <summary>Day 1 - Introduction to Verilog RTL Design and Synthesis</summary>
 
-* RTL design is checked for adherence to spec
-* the simulator we use for that is Iverilog
 
-What's a design?
+* RTL design is checked for adherence to spec
+* the simulator we use for that is 'Iverilog'
+
+What's a Design?
 * Actaul verilog/files
 * Has intended functionality
 * Meets required specifications
@@ -17,14 +18,13 @@ Whta's Testbench?
 
 
 
-Folder structure of the git clone:
-- `lib` - will contain sky130 standard cell library
-- `my_lib/verilog_models` - will contain standard cell verilog model
-- `verilog_files` -contains the lab experiments source files
-
 ## Introduction to open-source simulator Iverilog
 
 <img width="1076" height="877" alt="Screenshot 2025-09-27 at 2 55 09 PM" src="https://github.com/user-attachments/assets/45ea6e8e-8abf-45ba-ab29-785a47d1774b" />
+
+K cool we simulated it, but hat's a synthesiser?
+* Tool used for converting the RTL to netlist
+* Here we'll be using 'Yosys' for that 
 
 
 ## Intoduction to yosys
@@ -48,6 +48,13 @@ show
 
 
 ## Flat vs Hierarhial synthesis
+
+We don't see Hierarchies in flat synthesis 
+
+But why sub module level synthesis?
+* if we are required to synthesise mutliple modules
+* Divide n conquer for large designs
+
 <img width="1348" height="1017" alt="Screenshot 2025-09-27 at 3 33 00 PM" src="https://github.com/user-attachments/assets/d533d9e3-cf3d-4136-85ab-8f7087fdcd88" />
 
 
@@ -143,6 +150,8 @@ We can generalize for power of 2. for ex: for 8 3 zeros are appended
 
 ## Combinational logic optimization
 
+Squeezing the logic to most optimized design which saves poer n area
+
 1. We expect this mux `opt_check.v` to get simplified to AND  gate
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -207,6 +216,12 @@ show
 
 
 ## GLS synth sym mismatch 
+
+*Running the testbench with netlist as design under test
+
+Why even run GLS?
+* To verify the logical correctness of design after synthesis
+* to ensure timing of the design is met 
 
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
